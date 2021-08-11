@@ -10,7 +10,7 @@
         Spree.taxonomy_id = "<%= @taxonomy.id %>";
 </script>
 <div id="ajax_error" class="errorExplanation" style="display:none;"></div>
-<div class="columns clear">
-  <div id="taxonomy-tree" class="taxonomy-tree column" data-taxon_id="<%= @taxonomy.root.id %>" data-taxonomy_id="<%= @taxonomy.id %>"></div>
-  <div id="taxon-form"></div>
+<div class="row  d-flex">
+  <div id="taxonomy-tree" class="taxonomy-tree col-3 justify-content-between flex-column px-0" data-taxon_id="<%= @taxonomy.root.id %>" data-taxonomy_id="<%= @taxonomy.id %>"></div>
+  <div id="taxon-form" class="col-9 main"></div>
 </div> 

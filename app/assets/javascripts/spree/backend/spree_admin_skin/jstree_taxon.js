@@ -6,8 +6,9 @@ $(function(){
     var $taxonomyTree = $('#taxonomy-tree')
 
     // Layout
-    $mainPart[0].className = "col-12 main pl-4 pr-4";
+    $mainPart[0].className = "col-12 pl-4 pr-4";
     $sidebar.remove();
+    $mainPart.find(" > .container").removeClass();
 
     var jstree_rename = function( e, data ){  
         console.log(e,data)
