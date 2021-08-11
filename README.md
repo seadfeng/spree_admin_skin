@@ -7,7 +7,7 @@ Introduction goes here.
 1. Add this extension to your Gemfile with this line:
 
     ```ruby
-    gem 'spree_admin_skin'
+    gem 'spree_admin_skin', github: "seadfeng/spree_admin_skin"
     ```
 
 2. Install the gem using Bundler
