@@ -6,8 +6,7 @@
 .localeapp/locales
 .project
 .vscode
-coverage
-default
+coverage 
 Gemfile.lock
 tmp
 nbproject
