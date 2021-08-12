@@ -10,6 +10,8 @@ node(:children ) do |taxon|
         attr: { id: item.id, name: item.name } , 
         url:  spree.api_v1_taxonomy_taxon_path(item.taxonomy, item.id ) + "/jstree" , 
         admin_url:  spree.edit_admin_taxonomy_taxon_path(item.taxonomy, item.id )  , 
+        seo_url: spree.nested_taxons_path(item.permalink),
+        translations_url:  defined?(SpreeGlobalize) ? spree.admin_translations_path('taxons', item.id) : nil
       }
     } 
 end
@@ -23,7 +25,14 @@ node(:state) { 'closed' }
 node(:url) do |taxon|
   spree.api_v1_taxonomy_taxon_path(taxon.taxonomy, taxon.id ) + "/jstree" 
 end
+node(:seo_url) do |taxon|
+  spree.nested_taxons_path(taxon.permalink)
+end
 node(:admin_url) do |taxon|
   spree.edit_admin_taxonomy_taxon_path( taxon.taxonomy, taxon.id  ) 
 end
+if defined?(SpreeGlobalize)
+  node(:translations_url) { |taxon|  spree.admin_translations_path('taxons', taxon.id) }
+end
+
 

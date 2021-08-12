@@ -3,14 +3,26 @@
   <%= link_to Spree.t(:taxonomies), spree.admin_taxonomies_url %> /
   <%= @taxonomy.name %>
 <% end %>
+ 
 <script>
         Spree.routes.taxonomy_taxons_path = "<%= spree.api_v1_taxonomy_taxons_path(@taxonomy) %>";
         Spree.routes.admin_taxonomy_taxons_path = "<%= spree.admin_taxonomy_taxons_path(@taxonomy) %>";  
         Spree.routes.jstree_theme_path = "<%= stylesheet_path("jquery.jstree/themes/spree/style.css") %>";
-        Spree.taxonomy_id = "<%= @taxonomy.id %>";
+        Spree.taxonomy_id = "<%= @taxonomy.id %>"; 
+        Spree.translations.preview_taxon = "<%= Spree.t(:preview_taxon) %>";
+        Spree.translations.translations = "<%= Spree.t(:translations) %>";
+        Spree.translations.taxon = "<%= Spree.t(:taxon) %>";
+        <% if defined?(SpreeGlobalize) %> 
+          Spree.switch_edit = "<%= (params[:type].present? ) ? params[:type] : "translations" %>";
+        <% else %>
+         Spree.switch_edit = null;
+        <% end %>
 </script>
 <div id="ajax_error" class="errorExplanation" style="display:none;"></div>
 <div class="row  d-flex">
   <div id="taxonomy-tree" class="taxonomy-tree col-3 justify-content-between flex-column px-0" data-taxon_id="<%= @taxonomy.root.id %>" data-taxonomy_id="<%= @taxonomy.id %>"></div>
-  <div id="taxon-form" class="col-9 main"></div>
+  <div id="taxon-form" class="col-9 main"></div> 
+  <% if defined?(SpreeGlobalize) %>  
+    <div id="taxon-translations" class="col-9 main"></div>
+  <% end %>
 </div> 
