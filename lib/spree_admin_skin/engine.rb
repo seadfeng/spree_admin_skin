@@ -6,7 +6,8 @@ module SpreeAdminSkin
 
 
     initializer 'spree.assets.precompile', group: :all do |app|
-      app.config.assets.precompile += %w[ spree/backend/jstree/* ] 
+      app.config.assets.precompile += %w[ spree/backend/jstree/* ]
+      app.config.assets.precompile += %w[ jstree/default/* ]
     end
 
     # use rspec for tests
