@@ -1,6 +1,19 @@
 # SpreeAdminSkin
 
-Introduction goes here.
+## Admin Screen
+
+<h3>Without translation</h3>
+
+<img src="app/assets/images/spree/backend/spree_admin_skin/demo2.png" width="600">
+<hr>
+<h3>With translation</h3>
+<br>
+<img src="app/assets/images/spree/backend/spree_admin_skin/demo1.png" width="600">
+<hr>
+<h3>Taxon remove action</h3>
+<br>
+<img src="app/assets/images/spree/backend/spree_admin_skin/taxon1.png" >
+<img src="app/assets/images/spree/backend/spree_admin_skin/taxon2.png" >
 
 ## Installation
 
