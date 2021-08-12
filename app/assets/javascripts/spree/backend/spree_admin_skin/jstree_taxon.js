@@ -10,9 +10,8 @@ $(function(){
     $sidebar.remove();
     $mainPart.find(" > .container").removeClass();
 
-    var jstree_rename = function( e, data ){  
-        console.log(e,data)
-        
+    var jstree_rename = function( e, data ){   
+
         var url = base_url.toString();
         var post_data = { }
         var create_node = false;
@@ -46,32 +45,29 @@ $(function(){
     }
 
     var  jstree_remove = function(e, data) {
-        console.log(e,data)   
-        if(data.parent !== '#' ){
-            var rand = Math.ceil(Math.random()*10);
-            var inputText = prompt(`Delete ${data.node.text}, Please enter nomber ${rand}`)
-            if ( parseInt(inputText) == rand ) {
-                $.ajax({
-                  type: 'POST',
-                  dataType: 'json',
-                  url: data.node.original.url.replace("/jstree","").toString() ,
-                  data: {
-                    _method: 'delete',
-                    token: Spree.api_key
-                  }
-                }).done(function(){ 
-                       $taxonomyTree.jstree(true).toggle_node($('.jstree-icon').first())
-                }).fail(function () {
-                  data.instance.refresh(); 
-                })
-            }
+         
+        if(data.parent !== '#' ){  
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: data.node.original.url.replace("/jstree","").toString() ,
+                data: {
+                _method: 'delete',
+                token: Spree.api_key
+                }
+            }).done(function(){ 
+                $taxonomyTree.jstree(true).select_node($('.jstree-icon').first());
+                data.instance.refresh();  
+            }).fail(function () {
+                data.instance.refresh(); 
+            }) 
         } else{
             data.instance.refresh();  
         }
       }
  
     var jstree_move = function(e, data) { 
-         console.log(data)
+          
         $.post({  
             dataType: 'json',
             url: data.node.original.url.replace("/jstree","").toString() , 
@@ -109,22 +105,40 @@ $(function(){
              
         }
     } 
-    var taxon_tree_menu = function (obj, context) {
-        console.log(obj)
-        console.log(context)
+    var taxon_tree_menu = function ($node, context) { 
+        
         return {
           create: {
-            label: '<i class="icon icon-add"></i>' + Spree.translations.add,
-            action: function (obj) {
-              return context.element.create(obj)
+            label: '<i class="icon icon-add"></i> ' + Spree.translations.add,
+            action: function (item) { 
+              new_node =  context.create_node($node) ; 
+              return  context.edit(new_node);
             }
           }, 
           remove: {
             label: '<i class="icon icon-delete"></i> ' + Spree.translations.remove,
-            action: function (obj) {
-              return context.element.remove(obj)
+            action: function (item) { 
+                
+                var rand = Math.ceil(Math.random()*10);
+                var inputText = prompt(`Delete ${$node.text}, Please enter nomber ${rand}`)
+                if ( parseInt(inputText) == rand   ) {
+                    return context.delete_node($node);
+                }  
+            },
+            _disabled: function(item) { 
+                console.log(item.element)
+                console.log($node)
+                if (  $node.parent == '#' || !$node.original.can_remove  ) {
+                    return true;
+                }  
             }
-          } 
+          }, 
+        //   rename: {
+        //     label: '<i class="icon icon-rename"></i> ' + Spree.translations.rename,
+        //     action: function (item) {
+        //       return context.edit($node)
+        //     }
+        //   }  
         }
       }
  
@@ -154,9 +168,9 @@ $(function(){
         $taxonomyTree.jstree( { 
                 core: core, 
                 contextmenu: {
-                    // items: function (obj) {
-                    //     return taxon_tree_menu(obj, this);
-                    // }
+                    items: function (obj) {
+                        return taxon_tree_menu(obj, this);
+                    }
                 },  
                 plugins: ['dnd', 'state',  'contextmenu', 'themes'] 
             }).on('changed.jstree', jstree_changed)
