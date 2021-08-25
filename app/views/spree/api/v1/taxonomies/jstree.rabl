@@ -20,7 +20,7 @@ node(:admin_url) {
 } 
 if defined?(SpreeGlobalize)
   node(:translations_url) { 
-    spree.admin_translations_path('taxons', @taxonomy.id)
+    spree.admin_translations_path('taxons', @taxonomy.root.id)
   }
 end
 
