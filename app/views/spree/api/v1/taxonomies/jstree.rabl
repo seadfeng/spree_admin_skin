@@ -13,7 +13,8 @@ node(:url) {
   spree.api_v1_taxonomy_taxon_path( @taxonomy, @taxonomy.root.id  ) + '/jstree'
 }
 node(:seo_url) do |taxon|
-  spree.nested_taxons_path(@taxonomy.root.permalink)
+  permalink = defined?(SpreeGlobalize) ? @taxonomy.root.translations&.find_by(locale: default_store.default_locale)&.permalink : @taxonomy.root.permalink
+  spree.nested_taxons_path(permalink) 
 end
 node(:admin_url) { 
   spree.edit_admin_taxonomy_taxon_path( @taxonomy, @taxonomy.root.id  ) 

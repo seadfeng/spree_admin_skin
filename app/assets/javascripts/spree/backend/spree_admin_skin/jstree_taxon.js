@@ -42,7 +42,7 @@ $(function(){
             data: post_data
         }).done(function (data) {
             // $taxonomyTree.jstree(true).toggle_node(data.node);  
-            if(!create_node) $taxonomyTree.jstree(true).refresh(); 
+            if(create_node) $taxonomyTree.jstree(true).refresh(); 
         }).fail(function () {
             data.instance.refresh(); 
         })
