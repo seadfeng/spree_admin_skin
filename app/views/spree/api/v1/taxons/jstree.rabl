@@ -1,7 +1,7 @@
-collection @taxon.children, object_root: false 
+collection @taxon.children, object_root: false  
+default_store = Spree::Store.default
 node(:id) { |taxon| taxon.id }
-node(:children ) do |taxon|
-  default_store = default_store = Spree::Store.default
+node(:children ) do |taxon|  
    taxon.children.map{ |item| { 
         id: item.id, 
         text: item.name, 

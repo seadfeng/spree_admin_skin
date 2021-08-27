@@ -1,4 +1,5 @@
 object false
+default_store = Spree::Store.default
 node(:id) { @taxonomy.root.id }
 node(:text) { @taxonomy.root.name }
 node(:children ) do  
